@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello {{ controller_name }}!{% endblock %}
+
+{% block body %}
+<div class="container">
+	<div class="row">
+		<div class="timeline-centered">
+	{% for item in category %}
+	{% if loop.index is divisible by(bg|length) %}
+		{% set bg_index = 0 %}
+	{% endif %}
+		{% if loop.index is divisible by(2) %}
+			<article class="timeline-entry">
+				<div class="timeline-entry-inner">
+					<div class="timeline-icon bg-{{bg[bg_index]}}"><i class="entypo-feather"></i></div>
+					<div class="timeline-label">
+						<h2><a href="{{path('quizz.show', {'id': item.id})}}">{{item.name}}</a></h2>
+						<p>
+							{{item.questions.0.question}}
+							{{item.questions.1.question}}
+							{{item.questions.2.question}}
+							<p>Plus de questions dans cette categorie</p>
+						</p>
+					</div>
+				</div>
+			</article>
+		{% else %}
+			<article class="timeline-entry left-aligned">
+				<div class="timeline-entry-inner">
+					<div class="timeline-icon bg-{{bg[bg_index]}}"><i class="entypo-suitcase"></i></div>
+					<div class="timeline-label">
+						<h2><a href="{{path('quizz.show', {'id': item.id})}}">{{item.name}}</a></h2>
+						<p>
+							{{item.questions.0.question}}
+							{{item.questions.1.question}}
+							{{item.questions.2.question}}
+							<p>Plus de questions dans cette categorie</p>
+						</p>
+					</div>
+				</div>
+			</article>
+		{% endif %}
+		{% set bg_index = bg_index + 1 %}
+	{% endfor %}
+			<article class="timeline-entry begin">
+				<div class="timeline-entry-inner">
+					<div class="timeline-icon" style="-webkit-transform: rotate(-90deg); -moz-transform: rotate(-90deg);"><i class="entypo-flight"></i></div>
+				</div>
+			</article>
+		</div>
+	</div>
+</div>
+{% endblock %}
